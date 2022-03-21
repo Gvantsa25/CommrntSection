@@ -1,0 +1,26 @@
+<div id="container">
+  <div *ngFor="let comment of allComments">
+  <app-one-comment [commentInfo]="comment"
+   (isIncrementValue)="incrementOrDecrementScore($event)"
+   (deleteValue)="deleteComment($event)"
+   (replyText) =" replyComment($event)"
+   >  
+  </app-one-comment>
+
+  <ng-container *ngIf="comment.replies">
+    <div *ngFor="let repliesComment of comment.replies" class="comment-reply">
+      <app-one-comment 
+      [commentInfo]="repliesComment"
+      (isIncrementValue)="incrementOrDecrementScore($event)"
+      (deleteValue)="deleteComment($event)"
+      >
+      </app-one-comment>
+    </div>
+  </ng-container>
+
+</div>
+<div>
+  <textarea [(ngModel)]="newCommentText"></textarea>
+  <button (click)="newComment()">SEND</button>
+</div>
+</div>

@@ -1,0 +1,39 @@
+<div id="container" class='comment'>
+<div class="comment-votes">
+  <button (click)="isIncrementFunction()">+</button>
+  <span>{{commentInfo.score}}</span>
+  <button (click)="isIncrementFunction(false)">-</button>
+</div>
+<div class="comment-content-container">
+
+  <div class="comment-header">
+    <div class="user-info">
+      <img src="{{commentInfo.user.image.png}}">
+      <p><strong>{{commentInfo.user.username}}</strong></p>
+      <p>{{commentInfo.createdAt}}</p>
+    </div>
+    <div>
+      <button *ngIf="isUserCommentType()" class="reply" (click)="insertCreatedAt()">reply</button>
+      <button class='edit' *ngIf="commentInfo.user.username==='juliusomo';" (click)="showEdit = !showEdit">Edit</button>
+      <button  *ngIf="commentInfo.user.username==='juliusomo'"  class='delete' (click)="deleteFunction()">Delete</button>
+      <ng-container *ngIf="!showEdit; else edit"></ng-container>
+      <ng-container *ngIf="!showReply; else reply"></ng-container>
+    </div>
+  </div>
+  <p class="comment-content">{{commentInfo.content}}</p>
+</div></div>
+
+
+<ng-template #edit>
+  <div class="update-comment-text">
+    <textarea [(ngModel)]="commentInfo.content"></textarea>
+    <button (click)="showEdit = !showEdit">UPDATE</button>
+  </div>
+</ng-template>
+
+<ng-template #reply>
+  <div class="update-comment-text">
+    <textarea [(ngModel)]="newCommentText">{{commentInfo.content}}</textarea>
+    <button (click)="replyFunction()">SEND</button>
+  </div>
+</ng-template>
